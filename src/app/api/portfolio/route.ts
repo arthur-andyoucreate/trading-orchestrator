@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
       .order('snapshot_at', { ascending: false })
       .limit(100);
 
-    const equityHistory = (snapshots || []).map(s => ({
+    const equityHistory = (snapshots || []).map((s: any) => ({
       timestamp: new Date(s.snapshot_at),
       equity: parseFloat(s.total_value),
     })).reverse();
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
 
     // Create snapshot
     const supabase = getServerClient();
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from('portfolio_snapshots')
       .insert({
         user_id: userId,

@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
         .order('snapshot_at', { ascending: false })
         .limit(100);
 
-      equityHistory = (snapshots || []).map(s => ({
+      equityHistory = (snapshots || []).map((s: any) => ({
         timestamp: new Date(s.snapshot_at),
         equity: parseFloat(s.total_value),
       })).reverse();

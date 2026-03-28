@@ -11,17 +11,18 @@ import { SignalWeights, DEFAULT_SIGNAL_WEIGHTS } from '@/types/trading';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { asset: string } }
+  { params }: { params: Promise<{ asset: string }> }
 ) {
+  const { asset } = await params;
   try {
-    const asset = params.asset.toUpperCase();
+    const assetSymbol = asset.toUpperCase();
     const supabase = getServerClient();
 
     // Get latest signal for this asset
     const { data, error } = await supabase
       .from('signals')
       .select('*')
-      .eq('asset_symbol', asset)
+      .eq('asset_symbol', assetSymbol)
       .gt('expires_at', new Date().toISOString())
       .order('created_at', { ascending: false })
       .limit(1)
@@ -42,24 +43,25 @@ export async function GET(
       );
     }
 
+    const signalData = data as any;
     const signal = {
-      id: data.id,
+      id: signalData.id,
       asset: {
-        symbol: data.asset_symbol,
-        name: data.asset_name,
-        type: data.asset_type,
+        symbol: signalData.asset_symbol,
+        name: signalData.asset_name,
+        type: signalData.asset_type,
       },
-      direction: data.direction,
-      strength: data.strength,
-      compositeScore: parseFloat(data.composite_score),
-      confidence: parseFloat(data.confidence),
-      components: data.components,
-      weights: data.weights,
-      suggestedAction: data.suggested_action,
-      riskMetrics: data.risk_metrics,
-      timestamp: new Date(data.created_at),
-      expiresAt: new Date(data.expires_at),
-      metadata: data.metadata,
+      direction: signalData.direction,
+      strength: signalData.strength,
+      compositeScore: parseFloat(signalData.composite_score),
+      confidence: parseFloat(signalData.confidence),
+      components: signalData.components,
+      weights: signalData.weights,
+      suggestedAction: signalData.suggested_action,
+      riskMetrics: signalData.risk_metrics,
+      timestamp: new Date(signalData.created_at),
+      expiresAt: new Date(signalData.expires_at),
+      metadata: signalData.metadata,
     };
 
     return NextResponse.json({
@@ -77,21 +79,22 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { asset: string } }
+  { params }: { params: Promise<{ asset: string }> }
 ) {
+  const { asset } = await params;
   try {
-    const asset = params.asset.toUpperCase();
+    const assetSymbol = asset.toUpperCase();
     const body = await request.json().catch(() => ({}));
     const { weights, storeResult = true } = body;
 
     const signalWeights: SignalWeights = weights || DEFAULT_SIGNAL_WEIGHTS;
 
     // Generate signal
-    const signal = await generateCompositeSignal(asset, signalWeights);
+    const signal = await generateCompositeSignal(assetSymbol, signalWeights);
 
     if (!signal) {
       return NextResponse.json(
-        { error: 'Failed to generate signal for this asset', asset },
+        { error: 'Failed to generate signal for this asset', asset: assetSymbol },
         { status: 400 }
       );
     }

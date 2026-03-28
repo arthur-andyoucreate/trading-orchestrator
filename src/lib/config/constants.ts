@@ -228,6 +228,35 @@ export const SUPPORTED_ASSETS = [
   { symbol: 'MKR', name: 'Maker', type: 'defi_protocol' },
 ] as const;
 
+// ==================== Risk Management Defaults ====================
+
+export const DEFAULT_RISK_PARAMETERS = {
+  // Kelly Criterion
+  KELLY_FRACTION: 0.25, // Quarter Kelly for safety
+  
+  // Position sizing
+  MIN_POSITION_SIZE: 0.02, // 2%
+  MAX_POSITION_SIZE: 0.15, // 15%
+  DEFAULT_POSITION_SIZE: 0.05, // 5%
+  
+  // Portfolio limits
+  MAX_PORTFOLIO_HEAT: 0.80, // 80% max exposure
+  MAX_CORRELATED_EXPOSURE: 0.40, // 40%
+  
+  // Drawdown controls
+  DAILY_DRAWDOWN_LIMIT: 0.03, // 3%
+  WEEKLY_DRAWDOWN_LIMIT: 0.07, // 7%
+  MONTHLY_DRAWDOWN_LIMIT: 0.10, // 10%
+  
+  // Stop loss levels
+  TECHNICAL_STOP_MULTIPLIER: 2.5, // 2.5x ATR
+  VOLATILITY_STOP_BASE: 0.05, // 5% base
+  VOLATILITY_STOP_MAX: 0.12, // 12% max
+  
+  // Circuit breaker
+  EMERGENCY_LIQUIDATION_THRESHOLD: 0.15, // 15%
+} as const;
+
 // ==================== Dashboard Configuration ====================
 
 export const DASHBOARD_CONFIG = {
