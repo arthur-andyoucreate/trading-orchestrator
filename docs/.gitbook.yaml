@@ -1,0 +1,141 @@
+root: ./
+
+structure:
+  readme: README.md
+  summary: SUMMARY.md
+
+title: Trading Orchestrator
+description: AI-Orchestrated Multi-Source Trading Intelligence System
+
+# GitHub integration
+repository:
+  url: https://github.com/arthur-andyoucreate/trading-orchestrator
+  branch: main
+
+# Documentation structure
+pages:
+  - name: Getting Started
+    path: getting-started/
+    pages:
+      - name: Installation
+        path: getting-started/installation.md
+      - name: Configuration
+        path: getting-started/configuration.md
+      - name: First Trade
+        path: getting-started/first-trade.md
+
+  - name: Architecture
+    path: architecture/
+    pages:
+      - name: System Overview
+        path: architecture/README.md
+      - name: AI Agent System
+        path: architecture/ai-agents.md
+      - name: Model Providers
+        path: architecture/model-providers.md
+      - name: Data Pipeline
+        path: architecture/data-pipeline.md
+      - name: Risk Management
+        path: architecture/risk-management.md
+
+  - name: AI & Models
+    path: ai/
+    pages:
+      - name: Overview
+        path: ai/README.md
+      - name: Intelligent Routing
+        path: ai/routing.md
+      - name: Agent Orchestration
+        path: ai/orchestration.md
+      - name: Custom Agents
+        path: ai/custom-agents.md
+
+  - name: Trading Features
+    path: trading/
+    pages:
+      - name: Signal Generation
+        path: trading/README.md
+      - name: Multi-Factor Signals
+        path: trading/signals.md
+      - name: Risk Management
+        path: trading/risk.md
+      - name: Execution Engine
+        path: trading/execution.md
+      - name: Performance Analytics
+        path: trading/analytics.md
+
+  - name: Data Sources
+    path: data-sources/
+    pages:
+      - name: Reddit Sentiment
+        path: data-sources/reddit.md
+      - name: DeFi TVL Analysis
+        path: data-sources/defi.md
+      - name: News Analysis
+        path: data-sources/news.md
+      - name: Time Series Forecasting
+        path: data-sources/forecasting.md
+
+  - name: Design System
+    path: design-system/
+    pages:
+      - name: Overview
+        path: design-system/README.md
+      - name: Design Tokens
+        path: design-system/tokens.md
+      - name: Components
+        path: design-system/components.md
+      - name: Trading UI Patterns
+        path: design-system/trading-patterns.md
+      - name: Storybook
+        path: design-system/storybook.md
+
+  - name: API Reference
+    path: api/
+    pages:
+      - name: REST API
+        path: api/README.md
+      - name: WebSocket API
+        path: api/websockets.md
+      - name: Authentication
+        path: api/auth.md
+      - name: Rate Limiting
+        path: api/rate-limiting.md
+
+  - name: Deployment
+    path: deployment/
+    pages:
+      - name: Vercel Deployment
+        path: deployment/vercel.md
+      - name: Environment Variables
+        path: deployment/environment.md
+      - name: Monitoring
+        path: deployment/monitoring.md
+      - name: Scaling
+        path: deployment/scaling.md
+
+# Theme configuration
+theme:
+  palette:
+    primary: '#0ea5e9'
+    accent: '#22c55e'
+  logo: './assets/logo.png'
+  favicon: './assets/favicon.ico'
+
+# Analytics
+analytics:
+  google: 'G-XXXXXXXXXX'
+
+# Search
+search:
+  enabled: true
+  
+# PDF export
+pdf:
+  enabled: true
+  paper_size: 'a4'
+  margin:
+    top: '20mm'
+    bottom: '20mm'
+    left: '20mm'
+    right: '20mm'
